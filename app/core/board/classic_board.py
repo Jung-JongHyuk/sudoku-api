@@ -7,10 +7,10 @@ from core.board_position.plane_grid_board_position import PlaneGridBoardPosition
 
 class ClassicBoard(Board):
     def __init__(self):
-        self.rowSize = 9
-        self.colSize = 9
-        self.boxSize = 3
-        self.board = [[Cell(value=None, is_hint=False)] * self.colSize] * self.rowSize
+        self.row_size = 9
+        self.col_size = 9
+        self.box_size = 3
+        self.board = [[Cell(value=None, is_hint=False)] * self.col_size] * self.row_size
 
     def set_value(self, position: PlaneGridBoardPosition, value: Any) -> None:
         self.board[position.rowIndex][position.colIndex] = value
