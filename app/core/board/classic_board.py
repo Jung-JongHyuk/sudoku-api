@@ -23,3 +23,6 @@ class ClassicBoard(Board):
 
     def get_value(self, position: PlaneGridBoardPosition) -> Any:
         return self.board[position.rowIndex][position.colIndex]
+
+    # TODO
+    # getter / setter에서 position valid 여부 확인
