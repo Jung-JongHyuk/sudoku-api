@@ -1,3 +1,6 @@
+import json
+from dataclasses import asdict
+
 from core.board.board import Board
 from core.board.cell import Cell
 from core.board_position.plane_grid_board_position import PlaneGridBoardPosition
@@ -13,11 +16,12 @@ class ClassicBoard(Board):
     def set_value(self, position: PlaneGridBoardPosition, value: Cell) -> None:
         self.board[position.rowIndex][position.colIndex] = value
 
-    def read_from_json(self, json: str) -> None:
-        pass
+    def read_from_json(self, json_str: str) -> None:
+        self.board = json.loads(json_str)
 
     def write_to_json(self) -> str:
-        pass
+        result = list(map(lambda row: list(map(lambda cell: asdict(cell), row)), self.board))
+        return json.dumps(result)
 
     def get_value(self, position: PlaneGridBoardPosition) -> Cell:
         return self.board[position.rowIndex][position.colIndex]
