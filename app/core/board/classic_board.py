@@ -14,7 +14,10 @@ class ClassicBoard(Board):
         self.board = [[Cell(value=None, is_hint=False)] * self.col_size] * self.row_size
 
     def set_value(self, position: PlaneGridBoardPosition, value: Cell) -> None:
-        self.board[position.rowIndex][position.colIndex] = value
+        if self.is_position_valid(position):
+            self.board[position.rowIndex][position.colIndex] = value
+        else:
+            raise IndexError
 
     def read_from_json(self, json_str: str) -> None:
         self.board = json.loads(json_str)
@@ -24,7 +27,10 @@ class ClassicBoard(Board):
         return json.dumps(result)
 
     def get_value(self, position: PlaneGridBoardPosition) -> Cell:
-        return self.board[position.rowIndex][position.colIndex]
+        if self.is_position_valid(position):
+            return self.board[position.rowIndex][position.colIndex]
+        else:
+            raise IndexError
 
-    # TODO
-    # getter / setter에서 position valid 여부 확인
+    def is_position_valid(self, position: PlaneGridBoardPosition):
+        return 0 <= position.rowIndex < self.row_size and 0 <= position.colIndex < self.col_size
