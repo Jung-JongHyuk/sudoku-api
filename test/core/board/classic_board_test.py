@@ -31,7 +31,7 @@ class ClassicBoardTestCase(unittest.TestCase):
             value_to_set = Cell(value=7, is_hint=False)
             board.set_value(position=position, value=value_to_set)
 
-    def test_json(self):
+    def test_json_conversion(self):
         board = ClassicBoard()
         json = board.write_to_json()
 
