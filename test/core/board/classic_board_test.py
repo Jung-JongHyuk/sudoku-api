@@ -23,13 +23,18 @@ class ClassicBoardTestCase(unittest.TestCase):
 
         self.assertEqual(value, value_to_set)
 
-    def test_accessor_when_invalid_position(self):
+    def test_accessor_when_invalid_position_value(self):
         board = ClassicBoard()
-        position = PlaneGridBoardPosition(rowIndex=-1, colIndex=10)
 
         with self.assertRaises(IndexError):
             value_to_set = Cell(value=7, is_hint=False)
-            board.set_value(position=position, value=value_to_set)
+            position = PlaneGridBoardPosition(rowIndex=-1, colIndex=10)
+            board.set_value(position=position, cell=value_to_set)
+
+        with self.assertRaises(ValueError):
+            value_to_set = Cell(value=10, is_hint=False)
+            position = PlaneGridBoardPosition(rowIndex=3, colIndex=3)
+            board.set_value(position=position, cell=value_to_set)
 
     def test_json_conversion(self):
         board = ClassicBoard()
