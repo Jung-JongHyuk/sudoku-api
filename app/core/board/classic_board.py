@@ -16,7 +16,10 @@ class ClassicBoard(Board):
 
     def set_value(self, position: PlaneGridBoardPosition, value: Cell) -> None:
         if self.is_position_valid(position):
-            self.board[position.rowIndex][position.colIndex] = value
+            if self.is_value_valid(value):
+                self.board[position.rowIndex][position.colIndex] = value
+            else:
+                raise ValueError
         else:
             raise IndexError
 
