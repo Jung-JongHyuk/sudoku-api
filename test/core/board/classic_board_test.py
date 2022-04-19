@@ -18,7 +18,7 @@ class ClassicBoardTestCase(unittest.TestCase):
         position = PlaneGridBoardPosition(rowIndex=3, colIndex=3)
 
         value_to_set = Cell(value=7, is_hint=False)
-        board.set_value(position=position, value=value_to_set)
+        board.set_value(position=position, cell=value_to_set)
         value = board.get_value(position=position)
 
         self.assertEqual(value, value_to_set)

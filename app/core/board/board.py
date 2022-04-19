@@ -1,7 +1,6 @@
 from abc import *
 from typing import Any
 
-from core.board.cell import Cell
 from core.board_position.board_position import BoardPosition
 
 
@@ -13,7 +12,7 @@ class Board(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def set_value(self, position: BoardPosition, value: Any) -> None:
+    def set_value(self, position: BoardPosition, cell: Any) -> None:
         pass
 
     @abstractmethod
@@ -29,5 +28,5 @@ class Board(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def is_value_valid(self, value: Cell):
+    def is_value_valid(self, value: Any):
         pass
