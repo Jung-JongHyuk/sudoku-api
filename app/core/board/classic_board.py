@@ -11,6 +11,7 @@ class ClassicBoard(Board):
         self.row_size = 9
         self.col_size = 9
         self.box_size = 3
+        self.possible_values = list(range(10))
         self.board = [[Cell(value=None, is_hint=False)] * self.col_size] * self.row_size
 
     def set_value(self, position: PlaneGridBoardPosition, value: Cell) -> None:
@@ -32,5 +33,8 @@ class ClassicBoard(Board):
         else:
             raise IndexError
 
-    def is_position_valid(self, position: PlaneGridBoardPosition):
+    def is_position_valid(self, position: PlaneGridBoardPosition) -> bool:
         return 0 <= position.rowIndex < self.row_size and 0 <= position.colIndex < self.col_size
+
+    def is_value_valid(self, value: Cell) -> bool:
+        return isinstance(value.value, int) and 0 <= value.value <= 9
