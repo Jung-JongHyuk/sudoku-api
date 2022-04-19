@@ -1,6 +1,7 @@
 from abc import *
-from typing import Type, Any
+from typing import Any
 
+from core.board.cell import Cell
 from core.board_position.board_position import BoardPosition
 
 
@@ -21,4 +22,12 @@ class Board(metaclass=ABCMeta):
 
     @abstractmethod
     def write_to_json(self) -> str:
+        pass
+
+    @abstractmethod
+    def is_position_valid(self, position: BoardPosition) -> bool:
+        pass
+
+    @abstractmethod
+    def is_value_valid(self, value: Cell):
         pass
