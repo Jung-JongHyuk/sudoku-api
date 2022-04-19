@@ -5,6 +5,7 @@ from core.board_position.board_position import BoardPosition
 
 
 class Board(metaclass=ABCMeta):
+    possible_values: list[Any]
 
     @abstractmethod
     def get_value(self, position: BoardPosition) -> Any:
