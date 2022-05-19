@@ -1,6 +1,7 @@
 import unittest
 
 from core.board.classic_board import ClassicBoard
+from core.checker.classic_checker import ClassicChecker
 
 
 class ClassicCheckerTest(unittest.TestCase):
@@ -8,8 +9,11 @@ class ClassicCheckerTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        classic_sudoku_file_path = '../../resource/classic_sudoku.json'
-        with open(classic_sudoku_file_path, 'r') as file:
+        cls.classic_sudoku_file_path = '../../resource/classic_sudoku.json'
+        cls.board = ClassicBoard()
+        cls.classic_checker = ClassicChecker()
+
+    def setUp(self) -> None:
+        with open(self.classic_sudoku_file_path, 'r') as file:
             json_str = file.read()
-            cls.board = ClassicBoard()
-            cls.board.read_from_json(json_str)
+            self.board.read_from_json(json_str)
