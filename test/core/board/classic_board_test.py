@@ -45,7 +45,7 @@ class ClassicBoardTestCase(unittest.TestCase):
         board_row_size = len(board.board)
         board_col_size = len(board.board[0])
         self.assertEqual((board_row_size, board_col_size), (9, 9))
-        self.assertEqual(isinstance(
+        self.assertTrue(isinstance(
             board.get_value(PlaneGridBoardPosition(rowIndex=0, colIndex=0)),
             Cell
         ))
