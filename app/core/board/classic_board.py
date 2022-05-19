@@ -25,7 +25,14 @@ class ClassicBoard(Board):
             raise IndexError
 
     def read_from_json(self, json_str: str) -> None:
-        self.board = json.loads(json_str)
+        board_dict = json.loads(json_str)
+        self.board = list(
+            map(lambda row: list(
+                map(lambda cell_dict: Cell(**cell_dict),
+                    row)),
+                board_dict
+                )
+        )
 
     def write_to_json(self) -> str:
         result = list(map(lambda row: list(map(lambda cell: asdict(cell), row)), self.board))
