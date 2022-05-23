@@ -23,19 +23,19 @@ class ClassicChecker(Checker):
             return True
 
     def check_is_row_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
-        values = [board.get_value(PlaneGridBoardPosition(position.rowIndex, colIndex)) for colIndex in
+        values = [board.get_value(PlaneGridBoardPosition(position.rowIndex, colIndex)).value for colIndex in
                   range(position.colIndex + 1)]
         return len(set(values)) == len(values)
 
     def check_is_col_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
-        values = [board.get_value(PlaneGridBoardPosition(rowIndex, position.colIndex)) for rowIndex in
+        values = [board.get_value(PlaneGridBoardPosition(rowIndex, position.colIndex)).value for rowIndex in
                   range(position.rowIndex + 1)]
         return len(set(values)) == len(values)
 
     def check_is_box_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
         box_start_row_index = int(position.rowIndex / board.row_size) * board.box_size
         box_start_col_index = int(position.colIndex / board.col_size) * board.box_size
-        values = [board.get_value(PlaneGridBoardPosition(rowIndex, colIndex))
+        values = [board.get_value(PlaneGridBoardPosition(rowIndex, colIndex)).value
                   for rowIndex in range(box_start_row_index, box_start_row_index + board.box_size)
                   for colIndex in range(box_start_col_index, box_start_col_index + board.box_size)]
         return len(set(values)) == len(values)
