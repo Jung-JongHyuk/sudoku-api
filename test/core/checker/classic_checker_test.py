@@ -11,7 +11,7 @@ class ClassicCheckerTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.classic_sudoku_file_path = '../../resource/classic_sudoku.json'
         cls.board = ClassicBoard()
-        cls.classic_checker = ClassicChecker()
+        cls.checker = ClassicChecker()
 
     def setUp(self) -> None:
         with open(self.classic_sudoku_file_path, 'r') as file:
