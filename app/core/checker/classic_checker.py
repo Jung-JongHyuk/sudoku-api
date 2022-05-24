@@ -10,15 +10,15 @@ class ClassicChecker(Checker):
                    self.check_is_col_valid(board, position) and \
                    self.check_is_box_valid(board, position)
         else:
-            for rowIndex in range(board.row_size):
-                if not self.check_is_row_valid(board, PlaneGridBoardPosition(rowIndex, board.col_size - 1)):
+            for row_index in range(board.row_size):
+                if not self.check_is_row_valid(board, PlaneGridBoardPosition(row_index, board.col_size - 1)):
                     return False
-            for colIndex in range(board.col_size):
-                if not self.check_is_col_valid(board, PlaneGridBoardPosition(board.row_size - 1, colIndex)):
+            for col_index in range(board.col_size):
+                if not self.check_is_col_valid(board, PlaneGridBoardPosition(board.row_size - 1, col_index)):
                     return False
-            for rowIndex in range(board.box_size - 1, board.row_size, board.box_size):
-                for colIndex in range(board.box_size - 1, board.col_size, board.box_size):
-                    if not self.check_is_box_valid(board, PlaneGridBoardPosition(rowIndex, colIndex)):
+            for row_index in range(board.box_size - 1, board.row_size, board.box_size):
+                for col_index in range(board.box_size - 1, board.col_size, board.box_size):
+                    if not self.check_is_box_valid(board, PlaneGridBoardPosition(row_index, col_index)):
                         return False
             return True
 
