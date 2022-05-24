@@ -1,4 +1,8 @@
 import json
+
+경from
+copy
+import copy
 from dataclasses import asdict
 from typing import Any
 
@@ -18,7 +22,7 @@ class ClassicBoard(Board):
     def set_value(self, position: PlaneGridBoardPosition, cell: Cell) -> None:
         if self.is_position_valid(position):
             if self.is_value_valid(cell.value):
-                self.board[position.rowIndex][position.colIndex] = cell
+                self.board[position.rowIndex][position.colIndex] = copy(cell)
             else:
                 raise ValueError
         else:
@@ -40,7 +44,7 @@ class ClassicBoard(Board):
 
     def get_value(self, position: PlaneGridBoardPosition) -> Cell:
         if self.is_position_valid(position):
-            return self.board[position.rowIndex][position.colIndex]
+            return copy(self.board[position.rowIndex][position.colIndex])
         else:
             raise IndexError
 
