@@ -1,8 +1,5 @@
 import json
-
-경from
-copy
-import copy
+from copy import copy
 from dataclasses import asdict
 from typing import Any
 
