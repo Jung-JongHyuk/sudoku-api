@@ -16,7 +16,7 @@ class ClassicBoard(Board):
         self.possible_values = list(range(10))
         self.board = [[Cell(value=None, is_hint=False)] * self.col_size] * self.row_size
 
-    def set_value(self, position: PlaneGridBoardPosition, cell: Cell) -> None:
+    def set_cell(self, position: PlaneGridBoardPosition, cell: Cell) -> None:
         if self.is_position_valid(position):
             if self.is_value_valid(cell.value):
                 self.board[position.rowIndex][position.colIndex] = copy(cell)
@@ -39,7 +39,7 @@ class ClassicBoard(Board):
         result = list(map(lambda row: list(map(lambda cell: asdict(cell), row)), self.board))
         return json.dumps(result)
 
-    def get_value(self, position: PlaneGridBoardPosition) -> Cell:
+    def get_cell(self, position: PlaneGridBoardPosition) -> Cell:
         if self.is_position_valid(position):
             return copy(self.board[position.rowIndex][position.colIndex])
         else:

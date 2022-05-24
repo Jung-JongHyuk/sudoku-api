@@ -8,11 +8,11 @@ class Board(metaclass=ABCMeta):
     possible_values: list[Any]
 
     @abstractmethod
-    def get_value(self, position: BoardPosition) -> Any:
+    def get_cell(self, position: BoardPosition) -> Any:
         pass
 
     @abstractmethod
-    def set_value(self, position: BoardPosition, cell: Any) -> None:
+    def set_cell(self, position: BoardPosition, cell: Any) -> None:
         pass
 
     @abstractmethod
