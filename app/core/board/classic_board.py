@@ -52,4 +52,4 @@ class ClassicBoard(Board):
         return 0 <= position.rowIndex < self.row_size and 0 <= position.colIndex < self.col_size
 
     def is_value_valid(self, value: Any) -> bool:
-        return isinstance(value, int) and 0 <= value <= 9
+        return not value or isinstance(value, int) and 0 <= value <= 9
