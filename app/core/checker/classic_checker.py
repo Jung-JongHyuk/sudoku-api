@@ -23,25 +23,32 @@ class ClassicChecker(Checker):
             return True
 
     def check_is_row_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
-        values = [board.get_cell(PlaneGridBoardPosition(position.rowIndex, colIndex)).value for colIndex in
-                  range(position.colIndex + 1)]
-        values = self.get_none_removed_values(values)
+        values = []
+        for col_index in range(board.col_size):
+            cell = board.get_cell(PlaneGridBoardPosition(position.rowIndex, col_index))
+            if col_index <= position.colIndex or cell.is_hint:
+                values.append(cell.value)
+
         return len(set(values)) == len(values)
 
     def check_is_col_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
-        values = [board.get_cell(PlaneGridBoardPosition(rowIndex, position.colIndex)).value for rowIndex in
-                  range(position.rowIndex + 1)]
-        values = self.get_none_removed_values(values)
+        values = []
+        for row_index in range(board.row_size):
+            cell = board.get_cell(PlaneGridBoardPosition(row_index, position.colIndex))
+            if row_index <= position.rowIndex or cell.is_hint:
+                values.append(cell.value)
         return len(set(values)) == len(values)
 
     def check_is_box_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
         box_start_row_index = int(position.rowIndex / board.box_size) * board.box_size
         box_start_col_index = int(position.colIndex / board.box_size) * board.box_size
-        values = [board.get_cell(PlaneGridBoardPosition(rowIndex, colIndex)).value
-                  for rowIndex in range(box_start_row_index, box_start_row_index + board.box_size)
-                  for colIndex in range(box_start_col_index, box_start_col_index + board.box_size)]
-        values = self.get_none_removed_values(values)
-        return len(set(values)) == len(values)
+        values = []
+        for row_index in range(box_start_row_index, box_start_row_index + board.box_size):
+            for col_index in range(box_start_col_index, box_start_col_index + board.box_size):
+                cell = board.get_cell(PlaneGridBoardPosition(row_index, col_index))
+                if row_index < position.rowIndex or (position.rowIndex == row_index and col_index <= position.colIndex):
+                    values.append(cell.value)
+                elif cell.is_hint:
+                    values.append(cell.value)
 
-    def get_none_removed_values(self, values: list):
-        return [value for value in values if value is not None]
+        return len(set(values)) == len(values)
