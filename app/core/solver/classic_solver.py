@@ -20,20 +20,32 @@ class ClassicSolver(Solver):
         is_answer_exist = self.solve_cell(solved_board, PlaneGridBoardPosition(0, 0))
         return solved_board if is_answer_exist else None
 
-    def solve_cell(self, board: ClassicBoard, position: Optional[PlaneGridBoardPosition]) -> bool:
+    def check_is_answer_unique(self, board: ClassicBoard) -> bool:
+        self.row_size = board.row_size
+        self.col_size = board.col_size
+        solved_board = copy.deepcopy(board)
+        reverse_solved_board = copy.deepcopy(board)
+
+        is_answer_exist = self.solve_cell(solved_board, PlaneGridBoardPosition(0, 0), False)
+        self.solve_cell(reverse_solved_board, PlaneGridBoardPosition(0, 0), True)
+        return is_answer_exist and solved_board == reverse_solved_board
+
+    def solve_cell(self, board: ClassicBoard, position: Optional[PlaneGridBoardPosition], reverse=False) -> bool:
         if not position:
             return self.checker.check_is_valid(board)
 
         cell = board.get_cell(position)
+        possible_values = reversed(board.possible_values) if reverse else board.possible_values
         if cell.is_hint:
-            return self.solve_cell(board, self.get_next_position(position))
+            return self.solve_cell(board, self.get_next_position(position), reverse)
         else:
-            for value in board.possible_values:
+            for value in possible_values:
                 cell.value = value
                 board.set_cell(position, cell)
                 if self.checker.check_is_valid(board, position):
                     if self.solve_cell(board,
-                                       self.get_next_position(position)):
+                                       self.get_next_position(position),
+                                       reverse):
                         return True
             return False
 
