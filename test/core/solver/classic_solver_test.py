@@ -1,3 +1,5 @@
+import itertools
+import random
 import unittest
 
 from core.board.classic_board import ClassicBoard
@@ -28,3 +30,27 @@ class ClassicSolverTest(unittest.TestCase):
         self.board.set_cell(position, cell)
         solved_board = self.solver.solve_sudoku(self.board)
         self.assertEqual(solved_board, None)
+
+    def test_is_answer_unique(self):
+        self.assertTrue(self.solver.check_is_answer_unique(self.board))
+
+        self.make_board_answer_not_unique()
+        self.assertFalse(self.solver.check_is_answer_unique(self.board))
+
+    def make_board_answer_not_unique(self):
+        for (row_index, col_index) in itertools.product(range(self.board.row_size),
+                                                        range(self.board.col_size)):
+            position = PlaneGridBoardPosition(row_index, col_index)
+            cell = self.board.get_cell(position)
+            cell.is_hint = True
+            self.board.set_cell(position, cell)
+
+        # unhint cell의 수가 65개 이상인 classic sudoku는 여러 답을 갖는다는 것이 증명되어 있음
+        idx_to_unhint = list(itertools.product(range(self.board.row_size),
+                                               range(self.board.col_size)))[:65]
+        random.shuffle(idx_to_unhint)
+        for (row_index, col_index) in idx_to_unhint:
+            position = PlaneGridBoardPosition(row_index, col_index)
+            cell = self.board.get_cell(position)
+            cell.is_hint = False
+            self.board.set_cell(position, cell)
