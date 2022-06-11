@@ -21,7 +21,7 @@ class ClassicCheckerTest(unittest.TestCase):
             self.board.read_from_json(json_str)
 
     def test_check_is_row_valid(self):
-        position = PlaneGridBoardPosition(rowIndex=7, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=7, col_index=3)
 
         value_to_set = Cell(value=8, is_hint=False)
         self.board.set_cell(position, value_to_set)
@@ -32,7 +32,7 @@ class ClassicCheckerTest(unittest.TestCase):
         self.assertTrue(self.checker.check_is_row_valid(self.board, position))
 
     def test_check_is_col_valid(self):
-        position = PlaneGridBoardPosition(rowIndex=7, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=7, col_index=3)
 
         value_to_set = Cell(value=6, is_hint=False)
         self.board.set_cell(position, value_to_set)
@@ -43,7 +43,7 @@ class ClassicCheckerTest(unittest.TestCase):
         self.assertTrue(self.checker.check_is_col_valid(self.board, position))
 
     def test_check_is_box_valid(self):
-        position = PlaneGridBoardPosition(rowIndex=7, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=7, col_index=3)
 
         value_to_set = Cell(value=3, is_hint=False)
         self.board.set_cell(position, value_to_set)
@@ -56,7 +56,7 @@ class ClassicCheckerTest(unittest.TestCase):
     def test_check_is_valid(self):
         self.assertTrue(self.checker.check_is_valid(self.board))
 
-        position = PlaneGridBoardPosition(rowIndex=7, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=7, col_index=3)
         value_to_set = Cell(value=None, is_hint=False)
         self.board.set_cell(position, value_to_set)
         self.assertTrue(self.checker.check_is_valid(self.board))

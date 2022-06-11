@@ -27,8 +27,8 @@ class ClassicChecker(Checker):
     def check_is_row_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
         values = []
         for col_index in range(board.col_size):
-            cell = board.get_cell(PlaneGridBoardPosition(position.rowIndex, col_index))
-            if col_index <= position.colIndex or cell.is_hint:
+            cell = board.get_cell(PlaneGridBoardPosition(position.row_index, col_index))
+            if col_index <= position.col_index or cell.is_hint:
                 values.append(cell.value)
 
         return len(set(values)) == len(values)
@@ -36,22 +36,22 @@ class ClassicChecker(Checker):
     def check_is_col_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
         values = []
         for row_index in range(board.row_size):
-            cell = board.get_cell(PlaneGridBoardPosition(row_index, position.colIndex))
-            if row_index <= position.rowIndex or cell.is_hint:
+            cell = board.get_cell(PlaneGridBoardPosition(row_index, position.col_index))
+            if row_index <= position.row_index or cell.is_hint:
                 values.append(cell.value)
         return len(set(values)) == len(values)
 
     def check_is_box_valid(self, board: ClassicBoard, position: PlaneGridBoardPosition) -> bool:
-        box_start_row_index = int(position.rowIndex / board.box_size) * board.box_size
-        box_start_col_index = int(position.colIndex / board.box_size) * board.box_size
+        box_start_row_index = int(position.row_index / board.box_size) * board.box_size
+        box_start_col_index = int(position.col_index / board.box_size) * board.box_size
         values = []
         for (row_index, col_index) in itertools.product(
                 range(box_start_row_index, box_start_row_index + board.box_size),
                 range(box_start_col_index, box_start_col_index + board.box_size)):
             curr_position = PlaneGridBoardPosition(row_index, col_index)
             cell = board.get_cell(curr_position)
-            if row_index < position.rowIndex or \
-                    (position.rowIndex == row_index and col_index <= position.colIndex):
+            if row_index < position.row_index or \
+                    (position.row_index == row_index and col_index <= position.col_index):
                 values.append(cell.value)
             elif cell.is_hint:
                 values.append(cell.value)
