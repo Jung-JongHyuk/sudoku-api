@@ -1,3 +1,5 @@
+import itertools
+
 from core.board.classic_board import ClassicBoard
 from core.board_position.plane_grid_board_position import PlaneGridBoardPosition
 from core.checker.checker import Checker
@@ -43,12 +45,15 @@ class ClassicChecker(Checker):
         box_start_row_index = int(position.rowIndex / board.box_size) * board.box_size
         box_start_col_index = int(position.colIndex / board.box_size) * board.box_size
         values = []
-        for row_index in range(box_start_row_index, box_start_row_index + board.box_size):
-            for col_index in range(box_start_col_index, box_start_col_index + board.box_size):
-                cell = board.get_cell(PlaneGridBoardPosition(row_index, col_index))
-                if row_index < position.rowIndex or (position.rowIndex == row_index and col_index <= position.colIndex):
-                    values.append(cell.value)
-                elif cell.is_hint:
-                    values.append(cell.value)
+        for (row_index, col_index) in itertools.product(
+                range(box_start_row_index, box_start_row_index + board.box_size),
+                range(box_start_col_index, box_start_col_index + board.box_size)):
+            curr_position = PlaneGridBoardPosition(row_index, col_index)
+            cell = board.get_cell(curr_position)
+            if row_index < position.rowIndex or \
+                    (position.rowIndex == row_index and col_index <= position.colIndex):
+                values.append(cell.value)
+            elif cell.is_hint:
+                values.append(cell.value)
 
         return len(set(values)) == len(values)
