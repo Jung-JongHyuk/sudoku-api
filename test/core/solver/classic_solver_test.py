@@ -45,11 +45,11 @@ class ClassicSolverTest(unittest.TestCase):
             cell.is_hint = True
             self.board.set_cell(position, cell)
 
-        # unhint cell의 수가 65개 이상인 classic sudoku는 여러 답을 갖는다는 것이 증명되어 있음
         idx_to_unhint = list(itertools.product(range(self.board.row_size),
-                                               range(self.board.col_size)))[:65]
+                                               range(self.board.col_size)))
         random.shuffle(idx_to_unhint)
-        for (row_index, col_index) in idx_to_unhint:
+        # unhint cell의 수가 65개 이상인 classic sudoku는 여러 답을 갖는다는 것이 증명되어 있음
+        for (row_index, col_index) in idx_to_unhint[:65]:
             position = PlaneGridBoardPosition(row_index, col_index)
             cell = self.board.get_cell(position)
             cell.is_hint = False
