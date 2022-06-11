@@ -38,16 +38,17 @@ class ClassicSolver(Solver):
         possible_values = reversed(board.possible_values) if reverse else board.possible_values
         if cell.is_hint:
             return self.solve_cell(board, self.get_next_position(position), reverse)
-        else:
-            for value in possible_values:
-                cell.value = value
-                board.set_cell(position, cell)
-                if self.checker.check_is_valid(board, position):
-                    if self.solve_cell(board,
-                                       self.get_next_position(position),
-                                       reverse):
-                        return True
-            return False
+
+        for value in possible_values:
+            cell.value = value
+            board.set_cell(position, cell)
+            if not self.checker.check_is_valid(board, position):
+                continue
+            if self.solve_cell(board,
+                               self.get_next_position(position),
+                               reverse):
+                return True
+        return False
 
     def get_next_position(self, position: PlaneGridBoardPosition) -> Optional[PlaneGridBoardPosition]:
         if position.colIndex == self.col_size - 1:
