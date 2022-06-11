@@ -30,3 +30,6 @@ class Board(metaclass=ABCMeta):
     @abstractmethod
     def is_value_valid(self, value: Any):
         pass
+
+    def __eq__(self, other):
+        return hasattr(other, '__dict__') and self.__dict__ == other.__dict__
