@@ -51,10 +51,10 @@ class ClassicSolver(Solver):
         return False
 
     def get_next_position(self, position: PlaneGridBoardPosition) -> Optional[PlaneGridBoardPosition]:
-        if position.colIndex == self.col_size - 1:
-            if position.rowIndex == self.row_size - 1:
+        if position.col_index == self.col_size - 1:
+            if position.row_index == self.row_size - 1:
                 return None
             else:
-                return PlaneGridBoardPosition(position.rowIndex + 1, 0)
+                return PlaneGridBoardPosition(position.row_index + 1, 0)
         else:
-            return PlaneGridBoardPosition(position.rowIndex, position.colIndex + 1)
+            return PlaneGridBoardPosition(position.row_index, position.col_index + 1)

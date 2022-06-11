@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+
 from core.board_position.board_position import BoardPosition
 
 
 @dataclass
 class PlaneGridBoardPosition(BoardPosition):
-    rowIndex: int
-    colIndex: int
+    row_index: int
+    col_index: int

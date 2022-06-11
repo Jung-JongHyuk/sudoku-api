@@ -15,7 +15,7 @@ class ClassicBoardTestCase(unittest.TestCase):
         self.assertEqual((board_row_size, board_col_size), (9, 9))
 
     def test_accessor(self):
-        position = PlaneGridBoardPosition(rowIndex=3, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=3, col_index=3)
 
         value_to_set = Cell(value=7, is_hint=False)
         self.board.set_cell(position=position, cell=value_to_set)
@@ -24,7 +24,7 @@ class ClassicBoardTestCase(unittest.TestCase):
         self.assertEqual(value, value_to_set)
 
     def test_accessor_immutability(self):
-        position = PlaneGridBoardPosition(rowIndex=3, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=3, col_index=3)
 
         value = self.board.get_cell(position=position)
         value.value = 100
@@ -36,7 +36,7 @@ class ClassicBoardTestCase(unittest.TestCase):
         self.assertNotEqual(value_to_set, self.board.get_cell(position=position))
 
     def test_accessor_when_invalid_value(self):
-        position = PlaneGridBoardPosition(rowIndex=3, colIndex=3)
+        position = PlaneGridBoardPosition(row_index=3, col_index=3)
 
         value_to_set = Cell(value=None, is_hint=False)
         self.board.set_cell(position=position, cell=value_to_set)
@@ -46,13 +46,13 @@ class ClassicBoardTestCase(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             value_to_set = Cell(value=10, is_hint=False)
-            position = PlaneGridBoardPosition(rowIndex=3, colIndex=3)
+            position = PlaneGridBoardPosition(row_index=3, col_index=3)
             self.board.set_cell(position=position, cell=value_to_set)
 
     def test_accessor_when_invalid_position_value(self):
         with self.assertRaises(IndexError):
             value_to_set = Cell(value=7, is_hint=False)
-            position = PlaneGridBoardPosition(rowIndex=-1, colIndex=10)
+            position = PlaneGridBoardPosition(row_index=-1, col_index=10)
             self.board.set_cell(position=position, cell=value_to_set)
 
     def test_json_conversion(self):
@@ -64,7 +64,7 @@ class ClassicBoardTestCase(unittest.TestCase):
         board_col_size = len(self.board.board[0])
         self.assertEqual((board_row_size, board_col_size), (9, 9))
         self.assertTrue(isinstance(
-            self.board.get_cell(PlaneGridBoardPosition(rowIndex=0, colIndex=0)),
+            self.board.get_cell(PlaneGridBoardPosition(row_index=0, col_index=0)),
             Cell
         ))
 

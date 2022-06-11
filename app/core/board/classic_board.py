@@ -19,7 +19,7 @@ class ClassicBoard(Board):
     def set_cell(self, position: PlaneGridBoardPosition, cell: Cell) -> None:
         if self.is_position_valid(position):
             if self.is_value_valid(cell.value):
-                self.board[position.rowIndex][position.colIndex] = copy(cell)
+                self.board[position.row_index][position.col_index] = copy(cell)
             else:
                 raise ValueError
         else:
@@ -41,12 +41,12 @@ class ClassicBoard(Board):
 
     def get_cell(self, position: PlaneGridBoardPosition) -> Cell:
         if self.is_position_valid(position):
-            return copy(self.board[position.rowIndex][position.colIndex])
+            return copy(self.board[position.row_index][position.col_index])
         else:
             raise IndexError
 
     def is_position_valid(self, position: PlaneGridBoardPosition) -> bool:
-        return 0 <= position.rowIndex < self.row_size and 0 <= position.colIndex < self.col_size
+        return 0 <= position.row_index < self.row_size and 0 <= position.col_index < self.col_size
 
     def is_value_valid(self, value: Any) -> bool:
         return not value or isinstance(value, int) and 1 <= value <= 9
